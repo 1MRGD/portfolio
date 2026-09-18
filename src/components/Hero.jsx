@@ -31,7 +31,7 @@ export default function Hero() {
         </motion.div>
 
         {/* Dedicated Viewport Gap for the Central Plasma Core between Name and Content */}
-        <div id="sun-anchor" className="h-28 sm:h-32 md:h-36 w-full flex items-center justify-center pointer-events-none my-1 sm:my-2" />
+        <div id="sun-anchor" className="h-36 sm:h-40 md:h-44 w-full flex items-center justify-center pointer-events-none my-2 sm:my-3" />
 
         {/* Subtitle - Aspiring AI/ML & Data Analyst */}
         <motion.h2

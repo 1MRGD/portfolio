@@ -8,13 +8,24 @@ export default function BackgroundCanvas() {
     if (!canvas) return
     const ctx = canvas.getContext('2d')
     let animationFrameId
-    let width = (canvas.width = window.innerWidth)
-    let height = (canvas.height = window.innerHeight)
+    let dpr = Math.min(window.devicePixelRatio || 1, 2)
+    let width = window.innerWidth
+    let height = window.innerHeight
+
+    const updateDimensions = () => {
+      if (!canvas) return
+      dpr = Math.min(window.devicePixelRatio || 1, 2)
+      width = window.innerWidth
+      height = window.innerHeight
+      canvas.width = Math.floor(width * dpr)
+      canvas.height = Math.floor(height * dpr)
+      canvas.style.width = `${width}px`
+      canvas.style.height = `${height}px`
+    }
+    updateDimensions()
 
     const handleResize = () => {
-      if (!canvas) return
-      width = canvas.width = window.innerWidth
-      height = canvas.height = window.innerHeight
+      updateDimensions()
       initStars()
     }
     window.addEventListener('resize', handleResize)
@@ -122,6 +133,7 @@ export default function BackgroundCanvas() {
         id: 'python',
         name: 'PYTHON',
         distance: 105,
+        mobileDist: 48,
         badgeRadius: 16,
         speedMultiplier: 2.4,
         baseAngle: 0.3,
@@ -154,6 +166,7 @@ export default function BackgroundCanvas() {
         id: 'powerbi',
         name: 'POWER BI',
         distance: 150,
+        mobileDist: 72,
         badgeRadius: 16,
         speedMultiplier: 1.95,
         baseAngle: 1.6,
@@ -186,6 +199,7 @@ export default function BackgroundCanvas() {
         id: 'sql',
         name: 'SQL',
         distance: 200,
+        mobileDist: 98,
         badgeRadius: 16,
         speedMultiplier: 1.55,
         baseAngle: 2.9,
@@ -227,6 +241,7 @@ export default function BackgroundCanvas() {
         id: 'aiml',
         name: 'AI / ML',
         distance: 255,
+        mobileDist: 124,
         badgeRadius: 17,
         speedMultiplier: 1.25,
         baseAngle: 4.2,
@@ -267,6 +282,7 @@ export default function BackgroundCanvas() {
         id: 'java',
         name: 'JAVA',
         distance: 320,
+        mobileDist: 150,
         badgeRadius: 16,
         speedMultiplier: 0.95,
         baseAngle: 0.8,
@@ -310,6 +326,7 @@ export default function BackgroundCanvas() {
         id: 'mysql',
         name: 'MYSQL',
         distance: 395,
+        mobileDist: 174,
         badgeRadius: 16,
         speedMultiplier: 0.7,
         baseAngle: 2.2,
@@ -342,6 +359,7 @@ export default function BackgroundCanvas() {
         id: 'pandas',
         name: 'PANDAS',
         distance: 475,
+        mobileDist: 198,
         badgeRadius: 16,
         speedMultiplier: 0.48,
         baseAngle: 3.7,
@@ -370,6 +388,7 @@ export default function BackgroundCanvas() {
         id: 'git',
         name: 'GIT',
         distance: 555,
+        mobileDist: 222,
         badgeRadius: 15,
         speedMultiplier: 0.32,
         baseAngle: 5.0,
@@ -404,6 +423,7 @@ export default function BackgroundCanvas() {
         id: 'vscode',
         name: 'VS CODE',
         distance: 635,
+        mobileDist: 246,
         badgeRadius: 16,
         speedMultiplier: 0.2,
         baseAngle: 4.1,
@@ -450,6 +470,8 @@ export default function BackgroundCanvas() {
     let curMouseY = height * 0.5
 
     const render = () => {
+      ctx.save()
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0)
       ctx.fillStyle = '#060709'
       ctx.fillRect(0, 0, width, height)
 
@@ -482,8 +504,11 @@ export default function BackgroundCanvas() {
         coreX = rect.left + rect.width * 0.5
         coreY = rect.top + rect.height * 0.5
       }
-      const isMobile = width < 640
-      const orbitTiltY = isMobile ? 0.16 : (0.22 + Math.sin(scrollRatio * Math.PI) * 0.05)
+      const isMobile = width < 768
+      const isSmallMobile = width < 480
+      const orbitTiltY = isMobile
+        ? (isSmallMobile ? 0.33 : 0.28)
+        : (0.22 + Math.sin(scrollRatio * Math.PI) * 0.05)
 
       // =======================================================================
       // B. PARALLAX STARFIELD & SOLAR DUST PARTICLES
@@ -519,7 +544,7 @@ export default function BackgroundCanvas() {
       let isCoreHovered = false
       if (mouse.x !== null && mouse.y !== null) {
         const distToCore = Math.hypot(coreX - mouse.x, coreY - mouse.y)
-        if (distToCore < (isMobile ? 35 : 55)) {
+        if (distToCore < (isMobile ? 40 : 55)) {
           isCoreHovered = true
         }
       }
@@ -527,12 +552,12 @@ export default function BackgroundCanvas() {
       const pulseSpeed = time * (isCoreHovered ? 6.5 : 3.0)
       const corePulse = Math.sin(pulseSpeed) * (isCoreHovered ? 4.5 : 2.8)
 
-      // 1. Super-Brilliant Multi-Tiered Atmospheric Plasma Bloom (Responsively Scaled)
-      const bloomRadius = (isMobile ? 46 : 145) + corePulse * (isMobile ? 1.5 : 5)
+      // 1. Super-Brilliant Multi-Tiered Atmospheric Plasma Bloom (Responsively Scaled for Visibility)
+      const bloomRadius = (isMobile ? 82 : 145) + corePulse * (isMobile ? 2.5 : 5)
       const bloomGlow = ctx.createRadialGradient(0, 0, 0, 0, 0, bloomRadius)
       bloomGlow.addColorStop(0, 'rgba(255, 255, 255, 1.0)') // Pure white-hot center intensity
       bloomGlow.addColorStop(0.12, 'rgba(255, 255, 255, 0.96)')
-      bloomGlow.addColorStop(0.26, isCoreHovered ? 'rgba(56, 189, 248, 0.98)' : 'rgba(56, 189, 248, 0.86)') // Vivid electric cyan plasma (#38bdf8)
+      bloomGlow.addColorStop(0.26, isCoreHovered ? 'rgba(56, 189, 248, 0.98)' : 'rgba(56, 189, 248, 0.88)') // Vivid electric cyan plasma (#38bdf8)
       bloomGlow.addColorStop(0.52, 'rgba(14, 165, 233, 0.44)')
       bloomGlow.addColorStop(0.78, 'rgba(2, 132, 199, 0.16)')
       bloomGlow.addColorStop(1, 'rgba(0, 0, 0, 0)')
@@ -543,11 +568,11 @@ export default function BackgroundCanvas() {
       ctx.fill()
 
       // 2. High-Intensity Secondary Core Halo (Responsively Scaled)
-      const haloRadius = (isMobile ? 20 : 55) + corePulse * (isMobile ? 0.8 : 2.2)
+      const haloRadius = (isMobile ? 36 : 55) + corePulse * (isMobile ? 1.2 : 2.2)
       const innerCoreHalo = ctx.createRadialGradient(0, 0, 0, 0, 0, haloRadius)
       innerCoreHalo.addColorStop(0, 'rgba(255, 255, 255, 1.0)')
       innerCoreHalo.addColorStop(0.28, 'rgba(240, 249, 255, 0.98)')
-      innerCoreHalo.addColorStop(0.52, isCoreHovered ? 'rgba(56, 189, 248, 0.95)' : 'rgba(56, 189, 248, 0.82)')
+      innerCoreHalo.addColorStop(0.52, isCoreHovered ? 'rgba(56, 189, 248, 0.95)' : 'rgba(56, 189, 248, 0.84)')
       innerCoreHalo.addColorStop(0.80, 'rgba(14, 165, 233, 0.42)')
       innerCoreHalo.addColorStop(1, 'rgba(2, 132, 199, 0)')
 
@@ -557,12 +582,12 @@ export default function BackgroundCanvas() {
       ctx.fill()
 
       // 3. Dense White-Hot Singularity Nucleus (Responsively Scaled)
-      const nucleusRadius = (isMobile ? 9 : 24) + corePulse * (isMobile ? 0.4 : 1.2)
+      const nucleusRadius = (isMobile ? 16 : 24) + corePulse * (isMobile ? 0.6 : 1.2)
       const nucleusGlow = ctx.createRadialGradient(0, 0, 0, 0, 0, nucleusRadius)
       nucleusGlow.addColorStop(0, 'rgba(255, 255, 255, 1.0)')
       nucleusGlow.addColorStop(0.52, 'rgba(255, 255, 255, 0.98)')
       nucleusGlow.addColorStop(0.82, '#cffafe')
-      nucleusGlow.addColorStop(1, 'rgba(56, 189, 248, 0.85)')
+      nucleusGlow.addColorStop(1, 'rgba(56, 189, 248, 0.88)')
 
       ctx.fillStyle = nucleusGlow
       ctx.beginPath()
@@ -575,14 +600,14 @@ export default function BackgroundCanvas() {
       ctx.rotate(time * 0.25)
       for (let i = 0; i < coronaSpokes; i++) {
         const ang = (i / coronaSpokes) * Math.PI * 2
-        const flareDist = (isMobile ? 15 : 36) + Math.sin(time * 2.6 + i * 1.5) * (isMobile ? 3 : 9)
+        const flareDist = (isMobile ? 24 : 36) + Math.sin(time * 2.6 + i * 1.5) * (isMobile ? 5 : 9)
         const fx = Math.cos(ang) * flareDist
         const fy = Math.sin(ang) * flareDist
-        const corRadius = isMobile ? 10 : 22
+        const corRadius = isMobile ? 14 : 22
 
         const prominenceGrad = ctx.createRadialGradient(fx, fy, 0, fx, fy, corRadius)
-        prominenceGrad.addColorStop(0, isCoreHovered ? 'rgba(56, 189, 248, 0.55)' : 'rgba(56, 189, 248, 0.32)')
-        prominenceGrad.addColorStop(0.6, 'rgba(14, 165, 233, 0.14)')
+        prominenceGrad.addColorStop(0, isCoreHovered ? 'rgba(56, 189, 248, 0.55)' : 'rgba(56, 189, 248, 0.35)')
+        prominenceGrad.addColorStop(0.6, 'rgba(14, 165, 233, 0.15)')
         prominenceGrad.addColorStop(1, 'rgba(0, 0, 0, 0)')
 
         ctx.fillStyle = prominenceGrad
@@ -593,7 +618,7 @@ export default function BackgroundCanvas() {
       ctx.restore()
 
       // 5. Brilliant Anamorphic Lens Flare & Starlight Diffraction Rays
-      const flareLen = (isMobile ? 38 : 115) + corePulse * (isMobile ? 4 : 12)
+      const flareLen = (isMobile ? 70 : 115) + corePulse * (isMobile ? 6 : 12)
       const streakGrad = ctx.createLinearGradient(-flareLen, 0, flareLen, 0)
       streakGrad.addColorStop(0, 'rgba(56, 189, 248, 0)')
       streakGrad.addColorStop(0.28, 'rgba(56, 189, 248, 0.45)')
@@ -604,20 +629,20 @@ export default function BackgroundCanvas() {
       streakGrad.addColorStop(1, 'rgba(56, 189, 248, 0)')
 
       ctx.strokeStyle = streakGrad
-      ctx.lineWidth = isMobile ? 1.2 : 1.8
+      ctx.lineWidth = isMobile ? 1.4 : 1.8
       ctx.beginPath()
       ctx.moveTo(-flareLen, 0)
       ctx.lineTo(flareLen, 0)
       ctx.stroke()
 
       // Subtle Vertical Starlight Ray
-      const vertLen = (isMobile ? 14 : 44) + corePulse * (isMobile ? 1.5 : 4)
+      const vertLen = (isMobile ? 26 : 44) + corePulse * (isMobile ? 2 : 4)
       const vertGrad = ctx.createLinearGradient(0, -vertLen, 0, vertLen)
       vertGrad.addColorStop(0, 'rgba(56, 189, 248, 0)')
       vertGrad.addColorStop(0.5, 'rgba(255, 255, 255, 0.75)')
       vertGrad.addColorStop(1, 'rgba(56, 189, 248, 0)')
       ctx.strokeStyle = vertGrad
-      ctx.lineWidth = isMobile ? 0.9 : 1.2
+      ctx.lineWidth = isMobile ? 1.0 : 1.2
       ctx.beginPath()
       ctx.moveTo(0, -vertLen)
       ctx.lineTo(0, vertLen)
@@ -626,7 +651,7 @@ export default function BackgroundCanvas() {
       // 6. Central Starlight Focus Singularity Point (Diamond glint)
       ctx.fillStyle = '#ffffff'
       ctx.beginPath()
-      ctx.arc(0, 0, isMobile ? 2.5 : 4.5, 0, Math.PI * 2)
+      ctx.arc(0, 0, isMobile ? 3.2 : 4.5, 0, Math.PI * 2)
       ctx.fill()
 
       ctx.restore()
@@ -635,20 +660,19 @@ export default function BackgroundCanvas() {
       // D. ASTEROID DATA BELT (Synced with scroll & Responsively Scaled)
       // =======================================================================
       const scrollOrbitalDrive = scrollRatio * Math.PI * 4
-      const responsiveScale = isMobile
-        ? Math.max(0.24, Math.min(0.32, width / 1150))
-        : Math.max(0.45, Math.min(1.0, width / 1150))
+      const responsiveScale = Math.max(0.52, Math.min(1.0, width / 1150))
+      const mobileMultiplier = Math.min(1.06, Math.max(0.85, width / 400))
 
       const activeAsteroids = isMobile ? asteroids.filter((_, idx) => idx % 2 === 0) : asteroids
       activeAsteroids.forEach((ast) => {
         const curAngle = ast.baseAngle + (time * 0.3 + scrollOrbitalDrive) * ast.speedMultiplier
-        const scaledDist = ast.dist * responsiveScale
+        const scaledDist = isMobile ? ast.dist * 0.40 * mobileMultiplier : ast.dist * responsiveScale
         const ax = Math.cos(curAngle) * scaledDist
         const ay = Math.sin(curAngle) * (scaledDist * orbitTiltY)
 
-        ctx.fillStyle = `rgba(255, 255, 255, ${ast.alpha})`
+        ctx.fillStyle = isMobile ? 'rgba(255, 255, 255, 0.45)' : `rgba(255, 255, 255, ${ast.alpha})`
         ctx.beginPath()
-        ctx.arc(coreX + ax, coreY + ay, isMobile ? ast.size * 0.8 : ast.size, 0, Math.PI * 2)
+        ctx.arc(coreX + ax, coreY + ay, isMobile ? ast.size * 1.1 : ast.size, 0, Math.PI * 2)
         ctx.fill()
       })
 
@@ -660,22 +684,28 @@ export default function BackgroundCanvas() {
       ctx.save()
       ctx.translate(coreX, coreY)
 
-      // On mobile, show core 5 tools to keep view clean, uncluttered, and perfectly framed
+      // Active tools: 6 core tools on narrow mobile, 7 on wide mobile, all on tablet/desktop
       const activeTools = isMobile
-        ? toolOrbits.filter((t) => ['python', 'powerbi', 'sql', 'aiml', 'java'].includes(t.id))
+        ? toolOrbits.filter((t) =>
+            width < 500
+              ? ['python', 'powerbi', 'sql', 'aiml', 'java', 'mysql'].includes(t.id)
+              : ['python', 'powerbi', 'sql', 'aiml', 'java', 'mysql', 'pandas'].includes(t.id)
+          )
         : toolOrbits
 
       activeTools.forEach((tool) => {
         const currentAngle = tool.baseAngle + (time * 0.35 + scrollOrbitalDrive) * tool.speedMultiplier
-        const scaledDist = tool.distance * responsiveScale
+        const scaledDist = isMobile
+          ? (tool.mobileDist || tool.distance * 0.5) * mobileMultiplier
+          : tool.distance * responsiveScale
         const rx = scaledDist
         const ry = scaledDist * orbitTiltY
-        const effectiveBadgeRadius = isMobile ? 10 : Math.max(12, tool.badgeRadius * responsiveScale)
+        const effectiveBadgeRadius = isMobile ? 14 : Math.max(12, tool.badgeRadius * responsiveScale)
 
-        // 1. Sleek Cyber Orbital Vector Trace
-        ctx.strokeStyle = 'rgba(255, 255, 255, 0.06)'
-        ctx.lineWidth = 0.85
-        ctx.setLineDash([4, 12])
+        // 1. Sleek Cyber Orbital Vector Trace (distinct and clear on mobile)
+        ctx.strokeStyle = isMobile ? 'rgba(255, 255, 255, 0.16)' : 'rgba(255, 255, 255, 0.08)'
+        ctx.lineWidth = isMobile ? 1.1 : 0.85
+        ctx.setLineDash(isMobile ? [4, 8] : [4, 12])
         ctx.beginPath()
         ctx.ellipse(0, 0, rx, ry, 0, 0, Math.PI * 2)
         ctx.stroke()
@@ -685,13 +715,13 @@ export default function BackgroundCanvas() {
         const px = Math.cos(currentAngle) * rx
         const py = Math.sin(currentAngle) * ry
 
-        // 3. Mouse Hover Detection
+        // 3. Touch / Mouse Hover Detection
         let isHovered = false
         if (mouse.x !== null && mouse.y !== null) {
           const globalPx = coreX + px
           const globalPy = coreY + py
           const distToMouse = Math.hypot(globalPx - mouse.x, globalPy - mouse.y)
-          if (distToMouse < (isMobile ? 24 : 32 * responsiveScale)) {
+          if (distToMouse < (isMobile ? 28 : 32 * responsiveScale)) {
             isHovered = true
             hoveredToolInfo = {
               tool,
@@ -701,7 +731,7 @@ export default function BackgroundCanvas() {
 
             // Highlight orbital track on hover with brand color
             ctx.strokeStyle = tool.brandColor
-            ctx.lineWidth = 1.4
+            ctx.lineWidth = 1.5
             ctx.beginPath()
             ctx.ellipse(0, 0, rx, ry, 0, 0, Math.PI * 2)
             ctx.stroke()
@@ -712,11 +742,11 @@ export default function BackgroundCanvas() {
         ctx.translate(px, py)
 
         // 4. Vibrant Outer Ambient Brand Aura (Pulsing & Eye-Catching)
-        const pulseSize = Math.sin(time * 3 + tool.distance) * (isMobile ? 1 : 2)
-        const glowRadius = effectiveBadgeRadius * (isHovered ? 2.4 : 1.8) + pulseSize
+        const pulseSize = Math.sin(time * 3 + tool.distance) * (isMobile ? 1.5 : 2)
+        const glowRadius = effectiveBadgeRadius * (isHovered ? 2.4 : 1.9) + pulseSize
         const toolGlow = ctx.createRadialGradient(0, 0, effectiveBadgeRadius * 0.4, 0, 0, glowRadius)
         toolGlow.addColorStop(0, tool.brandColor)
-        toolGlow.addColorStop(0.45, `rgba(${tool.id === 'powerbi' ? '245, 158, 11' : '56, 189, 248'}, 0.25)`)
+        toolGlow.addColorStop(0.45, `rgba(${tool.id === 'powerbi' ? '245, 158, 11' : '56, 189, 248'}, 0.3)`)
         toolGlow.addColorStop(1, 'rgba(0, 0, 0, 0)')
 
         ctx.fillStyle = toolGlow
@@ -740,51 +770,49 @@ export default function BackgroundCanvas() {
 
         // 6. Dual-Ring Neon Border with High Specular Gloss
         ctx.strokeStyle = isHovered ? tool.accentColor : tool.brandColor
-        ctx.lineWidth = isHovered ? 2.0 : 1.2
+        ctx.lineWidth = isHovered ? 2.0 : 1.3
         ctx.beginPath()
         ctx.arc(0, 0, effectiveBadgeRadius, 0, Math.PI * 2)
         ctx.stroke()
 
         // Outer delicate specular hairline
-        ctx.strokeStyle = 'rgba(255, 255, 255, 0.4)'
+        ctx.strokeStyle = 'rgba(255, 255, 255, 0.45)'
         ctx.lineWidth = 0.6
         ctx.beginPath()
-        ctx.arc(0, 0, effectiveBadgeRadius + (isMobile ? 1.2 : 1.8), 0, Math.PI * 2)
+        ctx.arc(0, 0, effectiveBadgeRadius + 1.4, 0, Math.PI * 2)
         ctx.stroke()
 
         // 7. Render Vivid Custom Tool Icon
         ctx.save()
         if (isMobile) {
-          ctx.scale(0.62, 0.62)
+          ctx.scale(0.85, 0.85)
         } else if (responsiveScale < 0.7) {
           ctx.scale(responsiveScale * 1.2, responsiveScale * 1.2)
         }
         tool.renderIcon(ctx)
         ctx.restore()
 
-        // 8. Elegant Glass Floating Badge Label Tag (Shown on desktop or when hovered on mobile)
-        if (!isMobile || isHovered) {
-          const tagText = tool.name
-          ctx.font = 'bold 9px "JetBrains Mono", monospace'
-          const textWidth = ctx.measureText(tagText).width
-          const tagY = effectiveBadgeRadius + (isMobile ? 10 : 13)
+        // 8. Elegant Floating Badge Label Tag (Always visible on mobile for clarity!)
+        const tagText = tool.name
+        ctx.font = isMobile ? 'bold 8.5px "JetBrains Mono", monospace' : 'bold 9px "JetBrains Mono", monospace'
+        const textWidth = ctx.measureText(tagText).width
+        const tagY = effectiveBadgeRadius + (isMobile ? 11 : 13)
 
-          ctx.fillStyle = isHovered ? 'rgba(18, 18, 26, 0.95)' : 'rgba(10, 10, 16, 0.85)'
-          ctx.strokeStyle = isHovered ? tool.accentColor : 'rgba(255, 255, 255, 0.15)'
-          ctx.lineWidth = 0.8
-          ctx.beginPath()
-          if (ctx.roundRect) {
-            ctx.roundRect(-textWidth / 2 - 5, tagY - 8, textWidth + 10, 12, 4)
-          } else {
-            ctx.rect(-textWidth / 2 - 5, tagY - 8, textWidth + 10, 12)
-          }
-          ctx.fill()
-          ctx.stroke()
-
-          ctx.textAlign = 'center'
-          ctx.fillStyle = isHovered ? '#ffffff' : 'rgba(226, 232, 240, 0.9)'
-          ctx.fillText(tagText, 0, tagY + 1.5)
+        ctx.fillStyle = isHovered ? 'rgba(18, 18, 26, 0.98)' : 'rgba(10, 10, 16, 0.92)'
+        ctx.strokeStyle = isHovered ? tool.accentColor : (isMobile ? tool.brandColor : 'rgba(255, 255, 255, 0.2)')
+        ctx.lineWidth = isMobile ? 1.0 : 0.8
+        ctx.beginPath()
+        if (ctx.roundRect) {
+          ctx.roundRect(-textWidth / 2 - 5, tagY - 8, textWidth + 10, 12.5, 4)
+        } else {
+          ctx.rect(-textWidth / 2 - 5, tagY - 8, textWidth + 10, 12.5)
         }
+        ctx.fill()
+        ctx.stroke()
+
+        ctx.textAlign = 'center'
+        ctx.fillStyle = isHovered ? '#ffffff' : (isMobile ? '#f8fafc' : 'rgba(226, 232, 240, 0.9)')
+        ctx.fillText(tagText, 0, tagY + 1.5)
 
         ctx.restore()
       })
@@ -802,18 +830,21 @@ export default function BackgroundCanvas() {
         ctx.shadowBlur = 10
         ctx.shadowColor = 'rgba(0,0,0,0.95)'
 
+        const tooltipX = isMobile ? Math.max(16, Math.min(width - 155, screenX - 50)) : screenX + 30
+        const tooltipY = isMobile ? Math.max(60, screenY - 35) : screenY - 30
+
         ctx.strokeStyle = tool.brandColor
         ctx.lineWidth = 1.4
         ctx.beginPath()
-        ctx.moveTo(screenX + 12, screenY - 12)
-        ctx.lineTo(screenX + 26, screenY - 26)
-        ctx.lineTo(screenX + 125, screenY - 26)
+        ctx.moveTo(screenX, screenY - 12)
+        ctx.lineTo(tooltipX, tooltipY + 16)
+        ctx.lineTo(tooltipX + 130, tooltipY + 16)
         ctx.stroke()
 
-        ctx.fillText(tool.name, screenX + 30, screenY - 30)
+        ctx.fillText(tool.name, tooltipX + 6, tooltipY + 12)
         ctx.font = '10px "JetBrains Mono", monospace'
         ctx.fillStyle = tool.accentColor
-        ctx.fillText(tool.tag, screenX + 30, screenY - 14)
+        ctx.fillText(tool.tag, tooltipX + 6, tooltipY + 26)
         ctx.restore()
       } else if (isCoreHovered) {
         // Plasma Core Overdrive Telemetry
@@ -823,23 +854,26 @@ export default function BackgroundCanvas() {
         ctx.shadowBlur = 10
         ctx.shadowColor = 'rgba(0,0,0,0.95)'
 
+        const tooltipX = isMobile ? Math.max(16, Math.min(width - 195, coreX - 80)) : coreX + 40
+        const tooltipY = isMobile ? Math.max(50, coreY - 45) : coreY - 40
+
         ctx.strokeStyle = '#38bdf8'
         ctx.lineWidth = 1.4
         ctx.beginPath()
-        ctx.moveTo(coreX + 15, coreY - 15)
-        ctx.lineTo(coreX + 35, coreY - 35)
-        ctx.lineTo(coreX + 195, coreY - 35)
+        ctx.moveTo(coreX + 10, coreY - 10)
+        ctx.lineTo(tooltipX, tooltipY + 16)
+        ctx.lineTo(tooltipX + 175, tooltipY + 16)
         ctx.stroke()
 
-        ctx.fillText('ATMOSPHERIC PLASMA CORE', coreX + 40, coreY - 40)
+        ctx.fillText('ATMOSPHERIC PLASMA CORE', tooltipX + 6, tooltipY + 12)
         ctx.font = '10px "JetBrains Mono", monospace'
         ctx.fillStyle = '#ffffff'
-        ctx.fillText('STELLAR FLUX // 100% OPERATIONAL', coreX + 40, coreY - 22)
+        ctx.fillText('STELLAR FLUX // 100% OPERATIONAL', tooltipX + 6, tooltipY + 26)
         ctx.restore()
       }
 
       // =======================================================================
-      // G. CLICK SHOCKWAVES
+      // G. CLICK / TOUCH SHOCKWAVES
       // =======================================================================
       for (let r = ripples.length - 1; r >= 0; r--) {
         const rp = ripples[r]
@@ -847,7 +881,7 @@ export default function BackgroundCanvas() {
         rp.opacity -= 0.012
 
         ctx.strokeStyle = `rgba(56, 189, 248, ${Math.max(0, rp.opacity)})`
-        ctx.lineWidth = 1.2
+        ctx.lineWidth = isMobile ? 1.4 : 1.2
         ctx.beginPath()
         ctx.arc(rp.x, rp.y, rp.radius, 0, Math.PI * 2)
         ctx.stroke()
@@ -857,6 +891,7 @@ export default function BackgroundCanvas() {
         }
       }
 
+      ctx.restore()
       animationFrameId = requestAnimationFrame(render)
     }
 
