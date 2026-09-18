@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import { useLocation, useNavigate, Link } from 'react-router-dom'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Menu, X, Cpu, ArrowUpRight } from 'lucide-react'
 
@@ -6,6 +7,9 @@ export default function Navbar() {
   const [scrolled, setScrolled] = useState(false)
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const [activeHover, setActiveHover] = useState(null)
+
+  const location = useLocation()
+  const navigate = useNavigate()
 
   useEffect(() => {
     // Ensure day-mode class is completely removed
@@ -32,18 +36,32 @@ export default function Navbar() {
     e.preventDefault()
     setMobileMenuOpen(false)
     if (!href || href === '#') {
-      window.scrollTo({ top: 0, behavior: 'smooth' })
+      if (location.pathname !== '/') {
+        navigate('/')
+      } else {
+        window.scrollTo({ top: 0, behavior: 'smooth' })
+      }
       return
     }
     const targetId = href.replace('#', '')
-    setTimeout(() => {
+    if (location.pathname !== '/') {
+      navigate('/')
+      setTimeout(() => {
+        const el = document.getElementById(targetId)
+        if (el) {
+          const yOffset = -72
+          const y = el.getBoundingClientRect().top + window.pageYOffset + yOffset
+          window.scrollTo({ top: y, behavior: 'smooth' })
+        }
+      }, 150)
+    } else {
       const el = document.getElementById(targetId)
       if (el) {
         const yOffset = -72
         const y = el.getBoundingClientRect().top + window.pageYOffset + yOffset
         window.scrollTo({ top: y, behavior: 'smooth' })
       }
-    }, 100)
+    }
   }
 
   const navLinks = [
@@ -67,8 +85,8 @@ export default function Navbar() {
       }`}>
         <div className="w-full max-w-7xl mx-auto px-4 sm:px-8 lg:px-12 flex items-center justify-between">
           {/* Left: Clean AI Engineering Brand */}
-          <a
-            href="#"
+          <Link
+            to="/"
             onClick={(e) => handleNavClick(e, '#')}
             className="flex items-center gap-2.5 sm:gap-3 group shrink-0 cursor-pointer touch-manipulation"
           >
@@ -86,7 +104,7 @@ export default function Navbar() {
                 Aspiring AI/ML & Data Analyst
               </span>
             </div>
-          </a>
+          </Link>
 
           {/* Center: Sleek Segmented Navigation Dock */}
           <nav className="hidden md:flex items-center gap-1 bg-[#121216]/90 backdrop-blur-md px-3 py-1.5 rounded-xl border border-white/10">

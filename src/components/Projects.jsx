@@ -1,7 +1,9 @@
 import React, { useState } from 'react'
+import { Link } from 'react-router-dom'
 import { motion, AnimatePresence } from 'framer-motion'
-import { ArrowUpRight, CheckCircle2, Layers, BarChart2 } from 'lucide-react'
+import { ArrowUpRight, ArrowRight, CheckCircle2, Layers, BarChart2 } from 'lucide-react'
 import { GithubIcon } from './Icons'
+import { projectsData } from '../data/projectsData'
 
 export default function Projects() {
   const [activeCategory, setActiveCategory] = useState('All')
@@ -17,64 +19,9 @@ export default function Projects() {
 
   const categories = ['All', 'Java & Backend', 'Security', 'Data Analytics']
 
-  const projects = [
-    {
-      id: 'vehicle-rental',
-      title: 'Vehicle Rental System',
-      category: 'Java & Backend',
-      description: 'Engineered a Java-based Vehicle Rental System managing booking, availability, and returns for 100+ users.',
-      highlights: [
-        'Implemented CRUD operations and optimized database queries.',
-        'Reduced manual record handling by 45%.',
-        'Enhanced system efficiency by 35% via optimized backend logic and secure authentication.',
-      ],
-      metrics: [
-        { label: 'Manual Effort Reduction', val: '-45%' },
-        { label: 'System Efficiency Boost', val: '+35%' },
-        { label: 'Concurrency Capacity', val: '100+ Users' },
-      ],
-      technologies: ['Java', 'JDBC', 'MySQL', 'HTML5', 'CSS3', 'OOP'],
-      github: 'https://github.com/1MRGD/Vehicle_Rental_System',
-    },
-    {
-      id: 'qr-voting',
-      title: 'QR Code–Based Secure Online Voting System',
-      category: 'Security',
-      description: 'Built and deployed a Java-based secure online voting system with QR code authentication.',
-      highlights: [
-        'Implemented QR verification, secure vote casting, and result management.',
-        'Enhanced voting security and eliminated duplicate voting (100% in test cases).',
-      ],
-      metrics: [
-        { label: 'Duplicate Prevention', val: '100% Verified' },
-        { label: 'Auth Method', val: 'QR Encryption' },
-        { label: 'Data Integrity', val: 'ACID Compliant' },
-      ],
-      technologies: ['Java', 'JDBC', 'MySQL', 'QR Code API', 'HTML5', 'CSS3'],
-      github: 'https://github.com/1MRGD/QR-Code-Based-Secure-Online-Voting-System-Using-Java',
-    },
-    {
-      id: 'deloitte-analytics',
-      title: 'Data Analytics Virtual Experience – Deloitte',
-      category: 'Data Analytics',
-      description: 'Worked on real-world data analysis tasks, applying forensic technology concepts to solve business problems.',
-      highlights: [
-        'Applied forensic technology and statistical analysis for anomaly detection.',
-        'Structured complex business data into executive-ready visual decision reports.',
-      ],
-      metrics: [
-        { label: 'Domain', val: 'Forensic Tech' },
-        { label: 'Case Studies', val: 'Enterprise Grade' },
-        { label: 'Deliverables', val: 'Insights & Reports' },
-      ],
-      technologies: ['Python', 'Data Analytics', 'Forensic Tech', 'Excel', 'Statistics'],
-      github: 'https://github.com/1MRGD',
-    },
-  ]
-
   const filteredProjects = activeCategory === 'All'
-    ? projects
-    : projects.filter((p) => p.category === activeCategory)
+    ? projectsData
+    : projectsData.filter((p) => p.category === activeCategory)
 
   return (
     <section id="projects" className="py-16 sm:py-20 md:py-24 bg-transparent relative w-full">
@@ -132,9 +79,13 @@ export default function Projects() {
                   <div>
                     {/* Header with Title & Category */}
                     <div className="flex items-start justify-between gap-2 mb-3">
-                      <h3 className="text-lg sm:text-xl font-bold text-white leading-snug">
-                        {project.title}
-                      </h3>
+                      <Link
+                        to={`/project/${project.id}`}
+                        className="text-lg sm:text-xl font-bold text-white leading-snug hover:text-cyan-300 transition-colors group/title inline-flex items-center gap-1.5"
+                      >
+                        <span>{project.title}</span>
+                        <ArrowUpRight className="w-4 h-4 opacity-0 -translate-x-1 group-hover/title:opacity-100 group-hover/title:translate-x-0 transition-all text-cyan-300 shrink-0" />
+                      </Link>
                       <span className="px-2.5 py-0.5 rounded-full bg-[#1e1e24] border border-white/10 text-gray-300 text-[10px] sm:text-xs font-medium whitespace-nowrap shrink-0">
                         {project.category}
                       </span>
@@ -218,16 +169,23 @@ export default function Projects() {
                   </div>
 
                   {/* Footer Link */}
-                  <div className="pt-3.5 sm:pt-4 border-t border-white/10 flex items-center justify-between">
-                    <span className="text-[9px] sm:text-[10px] font-mono text-gray-500 uppercase">REPO // VERIFIED</span>
+                  <div className="pt-3.5 sm:pt-4 border-t border-white/10 flex items-center justify-between gap-2">
+                    <Link
+                      to={`/project/${project.id}`}
+                      className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-white text-black hover:bg-zinc-200 transition-all text-xs font-bold shadow-md cursor-pointer active:scale-95"
+                    >
+                      <span>Explore Details</span>
+                      <ArrowRight className="w-3.5 h-3.5" />
+                    </Link>
+
                     <a
                       href={project.github}
                       target="_blank"
                       rel="noreferrer"
-                      className="inline-flex items-center gap-1.5 text-xs font-semibold text-white hover:text-gray-300 cursor-pointer p-1"
+                      className="inline-flex items-center gap-1.5 text-xs font-semibold text-gray-400 hover:text-white transition-colors cursor-pointer p-1"
                     >
                       <GithubIcon className="w-3.5 h-3.5" />
-                      <span>View Code</span>
+                      <span>Code</span>
                       <ArrowUpRight className="w-3 h-3" />
                     </a>
                   </div>
