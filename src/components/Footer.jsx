@@ -14,7 +14,7 @@ export default function Footer() {
           <span className="font-bold text-white text-sm sm:text-base">
             Ashish Ranjan Samal
           </span>
-          <p className="text-[11px] sm:text-xs text-gray-500 font-mono">Aspiring AI/ML & Data Analyst • © {new Date().getFullYear()}</p>
+          <p className="text-[11px] sm:text-xs text-gray-500 font-mono">Aspiring AI/ML Engineer • © {new Date().getFullYear()}</p>
         </div>
 
         <div className="flex items-center gap-2.5 sm:gap-3">

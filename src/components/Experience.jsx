@@ -44,14 +44,28 @@ export default function Experience() {
 
   const certifications = [
     {
-      title: 'Core Java Training',
+      title: 'Core & Advanced Java Training',
       issuer: 'Lakshya Institute of Technology',
-      details: 'Completed comprehensive training covering OOP concepts, exception handling, multithreading, and Java collections.',
+      details: 'Completed comprehensive training covering OOP concepts, exception handling, multithreading, Java collections, and advanced application architectures.',
     },
     {
-      title: 'Core Python Training',
+      title: 'Core & Advanced Python Training',
       issuer: 'Lakshya Institute of Technology',
-      details: 'Gained hands-on experience in Python fundamentals, scripting, automation, and logic building.',
+      details: 'Gained hands-on experience in Python fundamentals, scripting, automation, logic building, and advanced application workflows.',
+    },
+    {
+      title: 'GenAI Powered Data Analytics Job Simulation',
+      issuer: 'Tata iQ (Forage)',
+      date: 'Jul 2025',
+      credentialId: 'a37ZuvrdgRB4QqCFc',
+      details: 'Completed hands-on simulation applying Generative AI frameworks, prompt engineering, predictive modeling, and executive data analytics.',
+    },
+    {
+      title: 'Introduction to Technology Apprenticeship Job Simulation',
+      issuer: 'Accenture UK (Forage)',
+      date: 'Jul 2025',
+      credentialId: 'amsoDuwPh63bJt2N3',
+      details: 'Gained practical insight into technology apprentice workflows, software development lifecycle, debugging pipelines, and client consulting.',
     },
     {
       title: 'Data Analytics Virtual Experience',
@@ -75,7 +89,7 @@ export default function Experience() {
     },
     {
       title: 'Shot Put Champion (College Level)',
-      desc: 'Won First Prize in annual college sports event, outperforming 20+ participants.',
+      desc: 'Won First Prize in annual college sports event, outperforming 40+ participants.',
     },
   ]
 
@@ -148,10 +162,22 @@ export default function Experience() {
                 className="bg-[#121215]/85 backdrop-blur-md border border-white/10 p-5 sm:p-7 md:p-8 rounded-2xl flex flex-col justify-between hover:border-white/30 hover:bg-[#181820] transition-all shadow-lg shadow-black/60"
               >
                 <div>
-                  <h4 className="text-base sm:text-lg font-bold text-white mb-1">{cert.title}</h4>
-                  <p className="text-[11px] sm:text-xs text-gray-400 mb-3 sm:mb-4 font-mono">{cert.issuer}</p>
-                  <p className="text-xs text-gray-300 leading-relaxed">{cert.details}</p>
+                  <div className="flex items-center justify-between gap-2 mb-2 flex-wrap">
+                    <p className="text-[11px] sm:text-xs text-gray-400 font-mono">{cert.issuer}</p>
+                    {cert.date && (
+                      <span className="text-[10px] font-mono text-gray-400 px-2 py-0.5 rounded bg-white/5 border border-white/10">
+                        {cert.date}
+                      </span>
+                    )}
+                  </div>
+                  <h4 className="text-base sm:text-lg font-bold text-white mb-2 leading-snug">{cert.title}</h4>
+                  <p className="text-xs text-gray-300 leading-relaxed mb-3">{cert.details}</p>
                 </div>
+                {cert.credentialId && (
+                  <div className="pt-2.5 mt-2 border-t border-white/5 text-[10px] sm:text-[11px] font-mono text-gray-400 truncate">
+                    Credential ID: <span className="text-gray-300">{cert.credentialId}</span>
+                  </div>
+                )}
               </div>
             ))}
           </div>

@@ -50,8 +50,8 @@ html, body, #root {
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
-  filter: drop-shadow(0 0 1px rgba(255, 255, 255, 0.85))
-          drop-shadow(0 0 8px rgba(255, 255, 255, 0.3));
+  filter: drop-shadow(0 0 1px rgba(255, 255, 255, 0.6))
+          drop-shadow(0 0 6px rgba(255, 255, 255, 0.18));
   animation: runningShine 5s linear infinite;
   transition: filter 0.35s ease;
   cursor: default;
@@ -60,12 +60,12 @@ html, body, #root {
   word-break: normal;
 }
 
-/* Hover: Pure Bright White Illumination */
+/* Hover: Subtle, Soft Illumination */
 @media (hover: hover) {
   .grand-hero-name:hover {
-    filter: brightness(1.3)
-            drop-shadow(0 0 3px rgba(255, 255, 255, 1))
-            drop-shadow(0 0 18px rgba(255, 255, 255, 0.8));
+    filter: brightness(1.08)
+            drop-shadow(0 0 2px rgba(255, 255, 255, 0.6))
+            drop-shadow(0 0 8px rgba(255, 255, 255, 0.25));
   }
 }
 
@@ -115,9 +115,9 @@ body.day-mode,
 
 @media (hover: hover) {
   .day-mode .grand-hero-name:hover {
-    filter: brightness(1.2)
-            drop-shadow(0 1px 2px rgba(255, 255, 255, 1))
-            drop-shadow(0 0 14px rgba(255, 255, 255, 0.9));
+    filter: brightness(1.05)
+            drop-shadow(0 1px 2px rgba(255, 255, 255, 0.7))
+            drop-shadow(0 0 6px rgba(0, 0, 0, 0.15));
   }
 }
 

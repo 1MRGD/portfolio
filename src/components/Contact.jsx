@@ -98,7 +98,7 @@ export default function Contact() {
           </h2>
           <div className="w-16 h-0.5 bg-white mx-auto rounded-full mb-4" />
           <p className="text-gray-400 max-w-3xl mx-auto text-xs sm:text-base md:text-lg px-2">
-            Ready to discuss AI/ML engineering roles, data analytics pipelines, or entry-level opportunities.
+            Ready to discuss AI/ML engineering roles, intelligent software systems, or entry-level opportunities.
           </p>
         </motion.div>
 
@@ -109,7 +109,7 @@ export default function Contact() {
               <div>
                 <h3 className="text-lg sm:text-xl font-bold text-white mb-2">Direct Contact Channels</h3>
                 <p className="text-xs text-gray-400 leading-relaxed">
-                  Feel free to reach out via email, phone, or LinkedIn. I am actively available for software developer and analytics roles.
+                  Feel free to reach out via email, phone, or LinkedIn. I am actively available for AI/ML and software engineering roles.
                 </p>
               </div>
 
@@ -207,7 +207,7 @@ export default function Contact() {
                       required
                       value={formData.name}
                       onChange={handleChange}
-                      placeholder="e.g. John Doe"
+                      placeholder="e.g. Rahul Sharma"
                       className="w-full px-3.5 sm:px-4 py-2.5 sm:py-3 rounded-xl bg-[#18181f] border border-white/15 text-white text-sm sm:text-base placeholder-zinc-400 focus:outline-none focus:border-white focus:ring-2 focus:ring-white/10 hover:border-white/25 transition-all"
                     />
                   </div>
@@ -223,7 +223,7 @@ export default function Contact() {
                       required
                       value={formData.email}
                       onChange={handleChange}
-                      placeholder="john@example.com"
+                      placeholder="rahul.sharma@example.com"
                       className="w-full px-3.5 sm:px-4 py-2.5 sm:py-3 rounded-xl bg-[#18181f] border border-white/15 text-white text-sm sm:text-base placeholder-zinc-400 focus:outline-none focus:border-white focus:ring-2 focus:ring-white/10 hover:border-white/25 transition-all"
                     />
                   </div>

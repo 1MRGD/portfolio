@@ -114,7 +114,7 @@ export const projectsData = [
     id: 'qr-voting',
     title: 'QR Code–Based Secure Online Voting System',
     subtitle: 'Tamper-Resilient Ballot Architecture with Encrypted Dynamic QR Authentication',
-    category: 'Security',
+    category: 'Java & Backend',
     timeline: 'Academic Capstone • 2025',
     role: 'Security Architect & Full Stack Java Engineer',
     status: 'Completed & Verified',
@@ -220,116 +220,5 @@ export const projectsData = [
       },
     ],
     github: 'https://github.com/1MRGD/QR-Code-Based-Secure-Online-Voting-System-Using-Java',
-  },
-  {
-    id: 'deloitte-analytics',
-    title: 'Data Analytics Virtual Experience – Deloitte',
-    subtitle: 'Forensic Technology, Anomaly Detection & Executive BI Intelligence',
-    category: 'Data Analytics',
-    timeline: 'Deloitte (Forage) • 2024',
-    role: 'Data Analyst & Forensic Technology Consultant',
-    status: 'Completed & Certified',
-    description: 'Worked on real-world data analysis tasks, applying forensic technology concepts to solve business problems.',
-    overview:
-      'An intensive corporate simulation designed by Deloitte forensic specialists. The engagement entailed parsing high-volume transactional data, detecting fraudulent anomalies, uncovering hidden vendor collusion patterns, and delivering data-driven strategic risk assessments to executive leadership.',
-    problemStatement:
-      'Modern enterprise balance sheets contain millions of transactions where subtle irregularities—such as split invoices to bypass approval thresholds, phantom vendors, and off-hour ledger alterations—remain undetected by manual auditors.',
-    solution:
-      'Architected an end-to-end forensic analysis pipeline using Python, statistical modeling, and Business Intelligence reporting. Implemented Benford’s Law analysis, outlier detection algorithms, and automated reconciliation sheets to flag high-risk transactions with high precision.',
-    highlights: [
-      'Applied forensic technology and statistical analysis for anomaly detection in corporate transactions.',
-      'Cleaned, normalized, and transformed messy multi-table transactional datasets.',
-      'Structured complex business data into executive-ready visual decision reports and actionable recommendations.',
-      'Identified risk patterns and formulated strategic remediation policies for audit compliance.',
-    ],
-    metrics: [
-      {
-        label: 'Domain',
-        val: 'Forensic Tech',
-        desc: 'Corporate financial integrity, transaction auditing, and fraud analysis.',
-      },
-      {
-        label: 'Dataset Size',
-        val: 'Enterprise Grade',
-        desc: 'Multi-faceted transactional records, ledger entries, and audit logs.',
-      },
-      {
-        label: 'Deliverables',
-        val: 'Insights & Reports',
-        desc: 'Board-ready presentation decks, visual KPI summaries, and data models.',
-      },
-      {
-        label: 'Risk Mitigation',
-        val: 'Proactive Auditing',
-        desc: 'Systematic anomaly detection framework applicable to recurring corporate audits.',
-      },
-    ],
-    architecture: [
-      {
-        tier: 'Data Ingestion & Cleaning',
-        tech: 'Python / Pandas / Excel ETL',
-        role: 'Detects missing values, standardizes date formats, handles categorical anomalies, and cleans ledger records.',
-      },
-      {
-        tier: 'Forensic Investigation',
-        tech: 'Statistical Analysis & Outlier Detection',
-        role: 'Applies Z-score filtering, Benford’s Law analysis, and duplicate matching algorithms.',
-      },
-      {
-        tier: 'Hypothesis Testing',
-        tech: 'Exploratory Data Analysis (EDA)',
-        role: 'Correlates transaction volume spikes with suspicious vendor behavior and temporal patterns.',
-      },
-      {
-        tier: 'Executive Communication',
-        tech: 'BI Visual Dashboards & Presentations',
-        role: 'Synthesizes technical findings into crisp business impact summaries for senior stakeholders.',
-      },
-    ],
-    features: [
-      {
-        title: 'Forensic Anomaly Detection',
-        desc: 'Systematic identification of unusual transaction clusters, duplicate invoices, and off-hour ledger modifications.',
-      },
-      {
-        title: 'Automated Data Quality & ETL',
-        desc: 'Standardized scripts to cleanse, de-duplicate, and normalize raw corporate data files before ingestion.',
-      },
-      {
-        title: 'Statistical Risk Scoring',
-        desc: 'Mathematical weighting model that flags transactions with high probability of irregularity for priority human review.',
-      },
-      {
-        title: 'Interactive BI Dashboards',
-        desc: 'Executive dashboard designs showing risk distribution across regional business units and vendor categories.',
-      },
-      {
-        title: 'Actionable Governance Framework',
-        desc: 'Formulated operational policy recommendations to close control gaps and strengthen internal controls.',
-      },
-    ],
-    technologies: ['Python', 'Data Analytics', 'Forensic Tech', 'Excel', 'Statistics'],
-    techStackDetails: [
-      { name: 'Python', role: 'Data manipulation, statistical analysis scripts, and anomaly detection algorithms' },
-      { name: 'Data Analytics', role: 'Exploratory data analysis, cohort analysis, and trend identification' },
-      { name: 'Forensic Technology', role: 'Fraud pattern identification and audit trail reconstruction principles' },
-      { name: 'Excel / Spreadsheets', role: 'Pivot tables, VLOOKUP/XLOOKUP, and rapid tabular financial modeling' },
-      { name: 'Statistical Modeling', role: 'Distribution analysis, standard deviations, and outlier bounds' },
-    ],
-    engineeringHighlights: [
-      {
-        title: 'Multi-Criteria Outlier Detection',
-        desc: 'Combined frequency, monetary value, and temporal anomaly checks to reduce false positives by over 60% compared to simple thresholding.',
-      },
-      {
-        title: 'Reproducible ETL Pipeline',
-        desc: 'Structured analysis notebooks enabling instant re-execution when new monthly transactional dumps are provided.',
-      },
-      {
-        title: 'Executive Data Storytelling',
-        desc: 'Translated granular mathematical anomalies into clear dollar-impact risk metrics understandable to non-technical directors.',
-      },
-    ],
-    github: 'https://github.com/1MRGD',
   },
 ]

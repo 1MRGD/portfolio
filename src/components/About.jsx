@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { motion } from 'framer-motion'
-import { CheckCircle2, GraduationCap, Trophy, Terminal, Cpu, ShieldCheck, User } from 'lucide-react'
+import { CheckCircle2, Database, Trophy, Terminal, Cpu, ShieldCheck, User } from 'lucide-react'
 
 export default function About() {
   const [activeTab, setActiveTab] = useState('specs')
@@ -14,18 +14,12 @@ export default function About() {
     setActiveTab(tabList[nextIdx])
   }
 
-  const stats = [
-    { value: '8.50', label: 'Academic CGPA (BCA)', sub: 'Utkal University / LIT', metric: 'Top Tier' },
-    { value: '35%+', label: 'Analytics & Query Boost', sub: 'Optimized Data Pipelines & JDBC', metric: 'Measured' },
-    { value: '100%', label: 'Test Integrity Verification', sub: 'Zero-Anomaly Validation', metric: 'Verified' },
-  ]
-
   const terminalTabs = {
     specs: [
-      { cmd: 'ashish.getRole()', out: 'Aspiring AI/ML & Data Analyst' },
+      { cmd: 'ashish.getRole()', out: 'Aspiring AI/ML Engineer' },
       { cmd: 'ashish.getCoreStack()', out: 'Python (Machine Learning, Neural Networks), Java, SQL' },
       { cmd: 'ashish.getDatabaseEngine()', out: 'MySQL, JDBC Driver, Oracle, Schema Indexing' },
-      { cmd: 'ashish.getUndergradSpecs()', out: 'Utkal University / LIT // 8.50/10 CGPA (Top Tier)' },
+      { cmd: 'ashish.getUndergradSpecs()', out: 'Utkal University / LIT // BCA (Computer Applications)' },
       { cmd: 'ashish.getTools()', out: 'Git, GitHub, VS Code, Netlify, Pandas, NumPy, Scikit-Learn' },
     ],
     metrics: [
@@ -35,7 +29,7 @@ export default function About() {
     ],
     sports: [
       { cmd: 'ashish.getSportsHonor()', out: 'State-Level Taekwondo Bronze Medalist (Odisha)' },
-      { cmd: 'ashish.getAthletics()', out: 'College Shot Put Champion (1st Prize, 20+ Athletes)' },
+      { cmd: 'ashish.getAthletics()', out: 'College Shot Put Champion (1st Prize, 40+ Athletes)' },
       { cmd: 'ashish.getDisciplineIndex()', out: '100+ Hours Leadership & Physical Resilience' },
     ],
   }
@@ -51,16 +45,15 @@ export default function About() {
 
   const pillars = [
     {
-      title: 'AI/ML & Data Analytics',
-      desc: 'Developing predictive models, exploratory data pipelines, and machine learning architectures.',
+      title: 'AI/ML Engineering',
+      desc: 'Developing predictive models, deep learning pipelines, and intelligent machine learning architectures.',
       icon: Cpu,
       metric: 'AI / ML',
     },
     {
       title: 'Database Architecture',
       desc: 'High-performance SQL schema design, indexing, and transactional integrity on MySQL & Oracle.',
-      icon: GraduationCap,
-      metric: '8.50 CGPA',
+      icon: Database,
     },
     {
       title: 'Discipline & Sportsmanship',
@@ -71,7 +64,7 @@ export default function About() {
   ]
 
   return (
-    <section id="about" className="py-16 sm:py-20 md:py-28 bg-transparent relative w-full">
+    <section id="about" className="pt-24 pb-16 sm:pt-24 sm:pb-20 md:py-28 bg-transparent relative w-full scroll-mt-20 sm:scroll-mt-24">
       <div className="container mx-auto px-4 sm:px-8 lg:px-12 relative z-10 max-w-7xl w-full">
         {/* Section Header */}
         <motion.div
@@ -86,43 +79,8 @@ export default function About() {
           </h2>
           <div className="w-16 h-0.5 bg-white mx-auto rounded-full mb-4" />
           <p className="text-gray-400 max-w-3xl mx-auto text-xs sm:text-base md:text-lg px-2">
-            Aspiring AI/ML & Data Analyst with strong foundational expertise in Python, Java, relational databases, and machine learning pipelines.
+            Aspiring AI/ML Engineer with strong foundational expertise in Python, Java, relational databases, and machine learning pipelines.
           </p>
-        </motion.div>
-
-        {/* Executive Key Metric Cards (Scorecard) */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
-          className="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6 w-full mb-10 sm:mb-14"
-        >
-          {stats.map((stat, index) => (
-            <div
-              key={index}
-              className="relative group bg-[#121215]/90 backdrop-blur-xl border border-white/10 rounded-2xl p-5 sm:p-7 hover:border-white/35 hover:bg-[#181822] transition-all text-center flex flex-col justify-between shadow-xl shadow-black/80 overflow-hidden"
-            >
-              <div className="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-white/20 to-transparent" />
-              <div>
-                <div className="flex items-center justify-between text-[10px] font-mono text-gray-500 mb-2 sm:mb-3">
-                  <span>METRIC // 0{index + 1}</span>
-                  <span className="px-2 py-0.5 rounded bg-white/5 border border-white/10 text-gray-300 font-medium">
-                    {stat.metric}
-                  </span>
-                </div>
-                <div className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white mb-1.5 sm:mb-2 tracking-tight group-hover:scale-105 transition-transform">
-                  {stat.value}
-                </div>
-                <div className="text-xs sm:text-sm text-gray-200 font-semibold mb-1">
-                  {stat.label}
-                </div>
-              </div>
-              <div className="text-[11px] sm:text-xs text-gray-400 font-mono mt-2 sm:mt-3 pt-2 sm:pt-3 border-t border-white/5">
-                {stat.sub}
-              </div>
-            </div>
-          ))}
         </motion.div>
 
         {/* Full-Page Grid Split: Narrative with Dedicated Profile Pic Space + Interactive Cyber Terminal */}
@@ -137,7 +95,7 @@ export default function About() {
           >
             <div>
               {/* Header with Dedicated Profile Picture Slot */}
-              <div className="flex flex-col sm:flex-row items-center sm:items-start gap-4 sm:gap-6 mb-6 pb-6 border-b border-white/10 text-center sm:text-left">
+              <div className="flex flex-col sm:flex-row items-center sm:items-start gap-4 sm:gap-6 mb-6 pb-2 text-center sm:text-left">
                 {/* Executive Profile Picture Frame */}
                 <div className="relative group shrink-0 mx-auto sm:mx-0">
                   <div className="w-24 h-24 sm:w-28 sm:h-28 md:w-32 md:h-32 rounded-2xl bg-[#181822] border-2 border-white/20 overflow-hidden relative shadow-2xl flex items-center justify-center">
@@ -150,20 +108,14 @@ export default function About() {
                           e.currentTarget.nextElementSibling.style.display = 'flex';
                         }
                       }}
-                      className="w-full h-full object-cover object-center"
+                      className="w-full h-full object-cover object-[center_60%] transition-transform duration-500 group-hover:scale-105"
                     />
-                    <div className="w-full h-full flex flex-col items-center justify-center bg-gradient-to-br from-[#181824] to-[#0b0b0f] text-gray-400 p-3 text-center">
+                    <div className="w-full h-full hidden flex-col items-center justify-center bg-gradient-to-br from-[#181824] to-[#0b0b0f] text-gray-400 p-3 text-center">
                       <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-white/5 border border-white/10 flex items-center justify-center mb-1.5 text-gray-300">
                         <User className="w-5 h-5 sm:w-6 sm:h-6" />
                       </div>
                       <span className="text-[9px] sm:text-[10px] font-mono text-gray-400 tracking-wider">PROFILE PIC</span>
                     </div>
-                  </div>
-
-                  {/* Online Beacon */}
-                  <div className="absolute -bottom-2 -right-1 flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-[#08080a] border border-emerald-500/50 text-[10px] font-mono text-emerald-400 shadow-md">
-                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-ping" />
-                    <span>ONLINE</span>
                   </div>
                 </div>
 
@@ -173,10 +125,10 @@ export default function About() {
                     <h3 className="text-lg sm:text-2xl font-bold text-white">Ashish Ranjan Samal</h3>
                   </div>
                   <div className="text-[11px] sm:text-xs font-mono text-emerald-400 mb-2 font-medium">
-                    SYS.ID // ASPIRING AI/ML & DATA ANALYST
+                    SYS.ID // ASPIRING AI/ML ENGINEER
                   </div>
                   <p className="text-gray-300 text-xs sm:text-sm leading-relaxed">
-                    Passionate about building predictive machine learning models, database architectures, and scalable analytics solutions.
+                    Passionate about building predictive machine learning models, database architectures, and scalable backend solutions.
                   </p>
                 </div>
               </div>
@@ -184,7 +136,7 @@ export default function About() {
               {/* Narrative Story */}
               <div className="space-y-3 sm:space-y-4 text-gray-300 leading-relaxed text-xs sm:text-sm md:text-base">
                 <p>
-                  Aspiring AI/ML & Data Analyst with a solid engineering foundation in designing machine learning pipelines, building scalable backend services, and architecting optimized relational databases.
+                  Aspiring AI/ML Engineer with a solid engineering foundation in designing machine learning pipelines, building scalable backend services, and architecting optimized relational databases.
                 </p>
                 <p className="text-gray-400">
                   Whether training neural models for anomaly detection or optimizing database queries for high-concurrency systems, I approach every challenge with disciplined execution, model evaluation, and a drive to solve complex real-world problems.
@@ -194,7 +146,7 @@ export default function About() {
 
             <div className="flex items-center gap-2.5 sm:gap-3 text-xs text-gray-400 pt-5 sm:pt-6 border-t border-white/10 flex-wrap mt-5 sm:mt-6">
               <span className="px-3 py-1 sm:px-3.5 sm:py-1.5 rounded-lg bg-[#18181f] border border-white/10 text-gray-300 text-[11px] sm:text-xs">📍 Bhubaneswar, Odisha</span>
-              <span className="px-3 py-1 sm:px-3.5 sm:py-1.5 rounded-lg bg-[#18181f] border border-emerald-500/40 text-emerald-400 text-[11px] sm:text-xs">⚡ Open for AI/ML & Analytics Roles</span>
+              <span className="px-3 py-1 sm:px-3.5 sm:py-1.5 rounded-lg bg-[#18181f] border border-emerald-500/40 text-emerald-400 text-[11px] sm:text-xs">⚡ Open for AI/ML & Engineering Roles</span>
             </div>
           </motion.div>
 
@@ -297,7 +249,7 @@ export default function About() {
 
                 {!terminalCleared && (
                   <div className="flex items-center gap-2 text-gray-400 pt-2 sm:pt-3">
-                    <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+                    <span className="w-2 h-2 rounded-full bg-emerald-400" />
                     <span className="text-gray-500 text-xs">Ready for execution_</span>
                   </div>
                 )}
@@ -305,9 +257,8 @@ export default function About() {
             )}
 
             {/* Terminal Footer Bar */}
-            <div className="px-4 sm:px-6 py-2.5 sm:py-3 bg-[#14141a] border-t border-white/5 text-[10px] sm:text-[11px] text-gray-400 flex items-center justify-between">
+            <div className="px-4 sm:px-6 py-2.5 sm:py-3 bg-[#14141a] border-t border-white/5 text-[10px] sm:text-[11px] text-gray-400 flex items-center">
               <span>ACTIVE: ASHISH.AI</span>
-              <span>STATUS: ONLINE</span>
             </div>
           </motion.div>
         </div>
@@ -329,9 +280,11 @@ export default function About() {
                   <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center text-white group-hover:scale-110 transition-transform">
                     <Icon className="w-4 h-4 sm:w-5 sm:h-5" />
                   </div>
-                  <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-white/5 border border-white/10 text-gray-300 font-semibold">
-                    {pillar.metric}
-                  </span>
+                  {pillar.metric && (
+                    <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-white/5 border border-white/10 text-gray-300 font-semibold">
+                      {pillar.metric}
+                    </span>
+                  )}
                 </div>
                 <h4 className="text-base sm:text-lg font-bold text-white mb-1.5 sm:mb-2">{pillar.title}</h4>
                 <p className="text-gray-400 text-xs sm:text-sm leading-relaxed">{pillar.desc}</p>

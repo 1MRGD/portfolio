@@ -6,6 +6,7 @@ import Hero from './components/Hero'
 import About from './components/About'
 import Skills from './components/Skills'
 import Projects from './components/Projects'
+import ClientWork from './components/ClientWork'
 import Experience from './components/Experience'
 import Contact from './components/Contact'
 import Footer from './components/Footer'
@@ -19,6 +20,7 @@ function HomePage() {
       <About />
       <Skills />
       <Projects />
+      <ClientWork />
       <Experience />
       <Contact />
     </main>

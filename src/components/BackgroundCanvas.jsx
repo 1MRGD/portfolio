@@ -385,12 +385,80 @@ export default function BackgroundCanvas() {
         },
       },
       {
+        id: 'numpy',
+        name: 'NUMPY',
+        distance: 535,
+        mobileDist: 216,
+        badgeRadius: 16,
+        speedMultiplier: 0.38,
+        baseAngle: 1.8,
+        brandColor: '#2563eb', // Official NumPy Cobalt Blue
+        accentColor: '#60a5fa', // Sky Blue Accent
+        tag: 'NUMPY // HIGH-PERFORMANCE N-D ARRAYS & TENSORS',
+        renderIcon: (c) => {
+          // 3D Isometric Tensor Block (NumPy Logo Style)
+          // Top Face
+          c.fillStyle = '#60a5fa'
+          c.beginPath()
+          c.moveTo(0, -6.5)
+          c.lineTo(5.5, -3.2)
+          c.lineTo(0, 0.2)
+          c.lineTo(-5.5, -3.2)
+          c.closePath()
+          c.fill()
+
+          // Left Face
+          c.fillStyle = '#3b82f6'
+          c.beginPath()
+          c.moveTo(-5.5, -3.2)
+          c.lineTo(0, 0.2)
+          c.lineTo(0, 6.5)
+          c.lineTo(-5.5, 3.2)
+          c.closePath()
+          c.fill()
+
+          // Right Face
+          c.fillStyle = '#1d4ed8'
+          c.beginPath()
+          c.moveTo(0, 0.2)
+          c.lineTo(5.5, -3.2)
+          c.lineTo(5.5, 3.2)
+          c.lineTo(0, 6.5)
+          c.closePath()
+          c.fill()
+
+          // Isometric grid lines
+          c.strokeStyle = 'rgba(255, 255, 255, 0.5)'
+          c.lineWidth = 0.8
+          c.beginPath()
+          c.moveTo(0, 0.2)
+          c.lineTo(0, 6.5)
+          c.moveTo(0, 0.2)
+          c.lineTo(-5.5, -3.2)
+          c.moveTo(0, 0.2)
+          c.lineTo(5.5, -3.2)
+          c.stroke()
+
+          // Distinct Stylized White 'N'
+          c.strokeStyle = '#ffffff'
+          c.lineWidth = 1.4
+          c.lineCap = 'round'
+          c.lineJoin = 'round'
+          c.beginPath()
+          c.moveTo(-3, 3)
+          c.lineTo(-3, -3)
+          c.lineTo(3, 3)
+          c.lineTo(3, -3)
+          c.stroke()
+        },
+      },
+      {
         id: 'git',
         name: 'GIT',
-        distance: 555,
-        mobileDist: 222,
+        distance: 595,
+        mobileDist: 236,
         badgeRadius: 15,
-        speedMultiplier: 0.32,
+        speedMultiplier: 0.28,
         baseAngle: 5.0,
         brandColor: '#f97316', // Git Flame Orange
         accentColor: '#fdba74',
@@ -422,8 +490,8 @@ export default function BackgroundCanvas() {
       {
         id: 'vscode',
         name: 'VS CODE',
-        distance: 635,
-        mobileDist: 246,
+        distance: 655,
+        mobileDist: 254,
         badgeRadius: 16,
         speedMultiplier: 0.2,
         baseAngle: 4.1,
@@ -684,12 +752,12 @@ export default function BackgroundCanvas() {
       ctx.save()
       ctx.translate(coreX, coreY)
 
-      // Active tools: 6 core tools on narrow mobile, 7 on wide mobile, all on tablet/desktop
+      // Active tools: 6 core tools on narrow mobile, 8 on wide mobile, all on tablet/desktop
       const activeTools = isMobile
         ? toolOrbits.filter((t) =>
             width < 500
               ? ['python', 'powerbi', 'sql', 'aiml', 'java', 'mysql'].includes(t.id)
-              : ['python', 'powerbi', 'sql', 'aiml', 'java', 'mysql', 'pandas'].includes(t.id)
+              : ['python', 'powerbi', 'sql', 'aiml', 'java', 'mysql', 'pandas', 'numpy'].includes(t.id)
           )
         : toolOrbits
 

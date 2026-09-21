@@ -6,8 +6,8 @@ export default function Skills() {
     {
       title: 'Programming Languages',
       skills: [
-        { name: 'Java (OOP, Collections, Exceptions)', level: 90 },
-        { name: 'Python (Scripting & Logic Building)', level: 85 },
+        { name: 'Core & Advanced Java (OOP, Collections, JDBC)', level: 90 },
+        { name: 'Core & Advanced Python (Scripting & Automation)', level: 85 },
         { name: 'SQL (Structured Query Language)', level: 88 },
       ],
     },
@@ -85,9 +85,8 @@ export default function Skills() {
                 <div className="space-y-3.5 sm:space-y-4">
                   {category.skills.map((skill, skillIdx) => (
                     <div key={skillIdx} className="space-y-1.5">
-                      <div className="flex items-center justify-between text-xs">
+                      <div className="text-xs">
                         <span className="font-medium text-gray-200">{skill.name}</span>
-                        <span className="text-gray-400 font-mono text-[11px] sm:text-xs">{skill.level}%</span>
                       </div>
                       <div className="h-1.5 w-full bg-[#1e1e24] rounded-full overflow-hidden border border-white/5">
                         <motion.div

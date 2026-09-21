@@ -68,6 +68,7 @@ export default function Navbar() {
     { name: 'About', href: '#about' },
     { name: 'Skills', href: '#skills' },
     { name: 'Projects', href: '#projects' },
+    { name: 'Client Work', href: '#client-work' },
     { name: 'Experience', href: '#experience' },
     { name: 'Contact', href: '#contact' },
   ]
@@ -98,10 +99,9 @@ export default function Navbar() {
                 <span className="font-bold text-xs sm:text-sm tracking-tight text-white">
                   ASHISH.AI
                 </span>
-                <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-ping" />
               </div>
               <span className="text-[9px] sm:text-[10px] text-gray-400 font-mono line-clamp-1">
-                Aspiring AI/ML & Data Analyst
+                Aspiring AI/ML Engineer
               </span>
             </div>
           </Link>

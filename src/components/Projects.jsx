@@ -10,14 +10,13 @@ export default function Projects() {
   const [projectTabs, setProjectTabs] = useState({
     'vehicle-rental': 'highlights',
     'qr-voting': 'highlights',
-    'deloitte-analytics': 'highlights',
   })
 
   const setTab = (projectId, tab) => {
     setProjectTabs((prev) => ({ ...prev, [projectId]: tab }))
   }
 
-  const categories = ['All', 'Java & Backend', 'Security', 'Data Analytics']
+  const categories = ['All', ...Array.from(new Set(projectsData.map((p) => p.category)))]
 
   const filteredProjects = activeCategory === 'All'
     ? projectsData
@@ -39,30 +38,32 @@ export default function Projects() {
           </h2>
           <div className="w-16 h-0.5 bg-white mx-auto rounded-full mb-4" />
           <p className="text-gray-400 max-w-3xl mx-auto text-xs sm:text-base md:text-lg px-2">
-            Production-grade backend architectures, secure authentication engines, and analytics simulations.
+            Production-grade backend architectures and secure authentication engines.
           </p>
         </motion.div>
 
-        {/* Category Filter Pills */}
-        <div className="flex items-center justify-center gap-1.5 sm:gap-2 flex-wrap mb-8 sm:mb-12 px-2">
-          {categories.map((cat) => (
-            <button
-              key={cat}
-              type="button"
-              onClick={() => setActiveCategory(cat)}
-              className={`px-3.5 sm:px-5 py-2 sm:py-2 rounded-xl text-xs sm:text-sm font-semibold transition-all cursor-pointer touch-manipulation active:scale-95 min-h-[38px] flex items-center justify-center ${
-                activeCategory === cat
-                  ? 'bg-white text-black shadow-md font-bold'
-                  : 'bg-[#121215] text-gray-400 hover:text-white border border-white/10 active:bg-white/10'
-              }`}
-            >
-              {cat}
-            </button>
-          ))}
-        </div>
+        {/* Category Filter Pills (rendered only when there are multiple distinct categories) */}
+        {categories.length > 2 && (
+          <div className="flex items-center justify-center gap-1.5 sm:gap-2 flex-wrap mb-8 sm:mb-12 px-2">
+            {categories.map((cat) => (
+              <button
+                key={cat}
+                type="button"
+                onClick={() => setActiveCategory(cat)}
+                className={`px-3.5 sm:px-5 py-2 sm:py-2 rounded-xl text-xs sm:text-sm font-semibold transition-all cursor-pointer touch-manipulation active:scale-95 min-h-[38px] flex items-center justify-center ${
+                  activeCategory === cat
+                    ? 'bg-white text-black shadow-md font-bold'
+                    : 'bg-[#121215] text-gray-400 hover:text-white border border-white/10 active:bg-white/10'
+                }`}
+              >
+                {cat}
+              </button>
+            ))}
+          </div>
+        )}
 
         {/* Full-Width Responsive Projects Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 w-full">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8 w-full max-w-5xl mx-auto">
           <AnimatePresence>
             {filteredProjects.map((project, idx) => {
               const currentTab = projectTabs[project.id] || 'highlights'
